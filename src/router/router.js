@@ -32,7 +32,7 @@ router.beforeEach(async (to, from, next) => {
     const {
       data: { data },
     } = await getRouters();
-    // console.log(data);
+    // console.log(data); 
     //2.服务端返回数据添加路由数据
     const dynamicRoutes = addDynamicRoutes(data);
     //3.动态路由配置
@@ -40,6 +40,7 @@ router.beforeEach(async (to, from, next) => {
     next();
   }
 });
+
 const homesChildren = (t) => {
   t.forEach((v) => { 
     return {
@@ -51,8 +52,8 @@ const homesChildren = (t) => {
     };
   });
 }
-//服务端返回数据转换成路由数据格式
 
+//服务端返回数据转换成路由数据格式
 const addDynamicRoutes = (data) => {
   const homeRoutes = routes.filter((v) => v.path === "/home")[0];
   homeRoutes.children = [];
@@ -62,7 +63,7 @@ const addDynamicRoutes = (data) => {
       name: item.name,
       component: () => import(`@/view/Layout/${item.component}.vue`),
       meta: item.meta,
-      children:item.children? item.children:[],
+      children:item.children? homesChildren(item.children):[],
     });
   });  
   console.log(homeRoutes);
