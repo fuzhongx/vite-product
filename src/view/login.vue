@@ -96,7 +96,7 @@ const loginSubmit = () => {
     login(loginForm).then(res => {
         if (res.data.code == 200) {
             localStorage.setItem('token', res.data.data.token)
-            router.push('/home')
+            router.push('/main')
         } else {
             ElMessage.error(res.data.msg)
         }
