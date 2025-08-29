@@ -3,7 +3,7 @@
         <el-container>
             <el-aside :width="isCollapse == true ? '64px' : '200px'">
                 <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" router ellipsis>
-                    <template v-for="v in menuRoutes" :key="v.name">
+                    <template v-for="v in nav" :key="v.name">
                         <el-menu-item :index="`/${v.children[0].path}`" v-if="getRoutes(v)" @click="getR(v.children[0].path)">
                             {{ v.children.meta }}
                             <el-icon> <i-ep-upload-filled /></el-icon>
@@ -37,9 +37,15 @@ import Header from '@/view/Header.vue'
 import bus from '@/until/bus.js'
 import { getRouters } from '@/api/login.js'
 import { onMounted, reactive, ref } from 'vue'
+import {mainStore} from '@/store/index.js'
+import {storeToRefs} from 'pinia'//响应式处理
+
+const store=mainStore()//获取缓存数据
+const {nav}=storeToRefs(store)//结构并使数据具有响应式
+
 const isCollapse = ref(false)
 
-const menuRoutes = ref()
+// const menuRoutes = ref()
 
 bus.on('isCollapse', data => {
     isCollapse.value = data
@@ -60,8 +66,8 @@ const getMenuIndex = (a) => {
 }
 
 onMounted(async () => {
-    const { data: { data } } = await getRouters()
-    menuRoutes.value = data
+    // const { data: { data } } = await getRouters()
+    // menuRoutes.value = data
 })
 
 </script>

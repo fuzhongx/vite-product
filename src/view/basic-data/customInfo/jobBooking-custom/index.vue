@@ -1,5 +1,5 @@
 <template>
-  部门
+  1
 </template>
 
 <script>

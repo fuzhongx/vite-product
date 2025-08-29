@@ -1,5 +1,5 @@
 <template>
-  部门
+  不良项明细
 </template>
 
 <script>

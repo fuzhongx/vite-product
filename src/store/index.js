@@ -1,13 +1,17 @@
 import { defineStore } from "pinia";
 
-const store = defineStore("main", {
-  state: {
-    nva: [],
+export const mainStore = defineStore("main", {
+  state(){
+    return{
+      nav: [],//导航菜单数据
+    }
+
   },
+  // 管理状态
   actions: {
     //v获取到的路由存储到这里
-    getRouter(v) {
-      this.nva = v;
+    setNav(v) {
+      this.nav = v;
     },
   },
 });

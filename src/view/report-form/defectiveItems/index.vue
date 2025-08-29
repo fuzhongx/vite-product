@@ -1,5 +1,5 @@
 <template>
-  部门
+  不良项分布
 </template>
 
 <script>

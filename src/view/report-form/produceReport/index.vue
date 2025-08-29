@@ -1,5 +1,5 @@
 <template>
-  部门
+  生产报表
 </template>
 
 <script>

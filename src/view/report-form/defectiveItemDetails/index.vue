@@ -1,5 +1,5 @@
 <template>
-  部门
+  不良项汇总
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  部门
+  自定义报表配置
 </template>
 
 <script>
