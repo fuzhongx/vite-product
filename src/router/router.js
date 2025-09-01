@@ -2,6 +2,8 @@ import { createWebHashHistory, createRouter } from "vue-router";
 import { getRouters } from "@/api/login.js";
 import { ref } from "vue";
 import { mainStore } from "../store";
+import nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 const routes = [
   {
@@ -23,6 +25,7 @@ const router = createRouter({
 
 //动态路由数据
 router.beforeEach(async (to, from, next) => {
+  nprogress.start();
   if (to.path === "/login") {
     next();
   } else {
@@ -31,12 +34,12 @@ router.beforeEach(async (to, from, next) => {
       const {
         data: { data },
       } = await getRouters();
-      //2处理每次都会发送请求问题。缓存数据
+      //2.处理每次都会发送请求问题。缓存数据pinia
       mainStore().setNav(data);
 
-      //2.服务端返回数据添加路由数据
+      //3.服务端返回数据转换路由格式
       const dynamicRoutes = addDynamicRoutes(data);
-      //3.动态路由配置
+      //4.动态添加路由配置
       router.addRoute(dynamicRoutes);
       next({path:to.path});
     }else{
@@ -45,13 +48,17 @@ router.beforeEach(async (to, from, next) => {
 
   }
 });
+router.afterEach(()=>{
+    //路由跳转结束之后 进度条结束
+  nprogress.done()
+})
 
 //需要处理的问题
 //1导航每一次路由变化，都会发送请求->将数据缓存到pinia
 //2有两次请求产生，如何优化->不调用接口，使用第一次路由调用接口缓存的数据
 
 
-const modules = import.meta.glob("../view/**/*.vue");
+const modules = import.meta.glob("../view/**/*.vue");//获取所有vue文件
 //服务端返回数据转换成路由数据格式
 const addDynamicRoutes = (data) => {
   const homeRoutes = routes.filter((v) => v.path === "/main")[0];

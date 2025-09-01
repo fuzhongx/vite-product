@@ -15,10 +15,9 @@ const handleIsCollapse=()=>{
     
 }
 </script>
-
-<style scpoed>
+<style lang="scss" scoped>
 .contair{
-    height: 60px;
-    line-height: 74px;
+  height: 60px;
+  line-height: 74px;
 }
 </style>

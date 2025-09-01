@@ -9,6 +9,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  linOnSave:false,
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
@@ -41,4 +42,10 @@ export default defineConfig({
     }),
     
   ],
+  devServer: {
+    overlay: {
+      warnings: true,
+      errors: true
+    }
+  }
 });
