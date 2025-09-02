@@ -8,7 +8,7 @@
                         v-model="modelValue[v.feild]" />
                 </template>
                 <!-- 验证码 -->
-                <template v-if="v.type === 'captchaKey'">
+                <template v-else-if="v.type === 'captchaKey'">
                     <el-input :placeholder="v.placeholder" v-model="modelValue[v.feild]">
                         <template #append>
                             <slot name="src"></slot>
@@ -32,7 +32,7 @@
                 <template v-else-if="v.type === 'datetimerange'">
                     <el-date-picker type="datetimerange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
                         v-model="modelValue[v.feild]" size style="width:100%" value-format="YYYY-MM-DD HH:mm:ss" format="YYYY-MM-DD"
-                        time-format="hh:mm:ss" :default-time=defaultTime editable clearable/>
+                        time-format="hh:mm:ss" :default-time=defaultTime editable clearable @change="getTime"/>
                 </template>
 
                 <!-- 开关按钮 -->
@@ -99,7 +99,10 @@ const defaultTime = [
   new Date(2000, 1, 1, 0, 0, 0),
   new Date(2000, 2, 1, 23, 59, 59),
 ] 
-
+const getTime=(v)=>{
+    console.log(v,'选择时间');
+    
+}
 //默认重置
 const resetForm = () => {
     ruleFormRef.value?.resetFields()  //?.链判断运算符

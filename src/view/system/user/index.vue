@@ -47,7 +47,7 @@ import FromConfig from '@/until/system/user.js'
 import myTable from '@/components/myTable/myTable.vue'
 import tableConfig from '@/until/system/userTable.js'
 import { getDept, getUserTable, getUserSelect } from '@/api/user.js'
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, reactive } from 'vue'
 
 onMounted(() => {
   handleDept()
@@ -59,7 +59,7 @@ const myFormRef = ref()
 const formItem = FromConfig.formItem ?? []
 const FormParams = {}
 formItem.forEach(e => {
-  FormParams[e.filed] = ''
+  FormParams[e.feild] = ''
 });
 const FormData = ref(FormParams)
 
@@ -94,13 +94,24 @@ const handleDept = () => {
   })
 }
 
-const getTreeValue = (v) => {
-  console.log(v, 'bumen ');
+//部门查询信息
+const getTreeValue = async (v) => {
+  await getUserTable({
+    pageNum: 1,
+    pageSize: 10,
+    deptId: v.id
+  }).then(Ures => {
+    myTableData.value = Ures.data.rows
+  })
 }
+
 //查询
 const submitSelect = () => {
-  console.log(FormData.value);
-  getUserSelect(FormData.value).then(res => {
+  getUserSelect({
+    pageNum: 1,
+    pageSize: 10,
+    ...FormData.value
+  }).then(res => {
     myTableData.value = res.data.rows
   })
 }
@@ -109,12 +120,13 @@ const submitSelect = () => {
 const reset = () => {
   myFormRef.value.resetForm()
 }
+
 // 表格数据
 const myTableData = ref()
 const handleTable = async () => {
   await getUserTable({
     pageNum: 1,
-    pageSize: 10
+    pageSize: 10,
   }).then(Ures => {
     myTableData.value = Ures.data.rows
   })

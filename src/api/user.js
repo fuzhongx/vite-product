@@ -5,7 +5,14 @@ import axios from '@/until/requerts'
 export const getDept=params=>axios.get('/system/user/deptTree',params)
 
 //用户获取表格数据
-export const getUserTable=params=>axios.get('/system/user/list',params)
+export const getUserTable=params=>axios.get('/system/user/list',{params})
 
 //用户查询
-export const getUserSelect=(params)=>axios.get('/system/user/list',{params})
+// export function getUserSelect(params){
+//     return axios({
+//         url:'/system/user/list',
+//         method:'get',
+//         params
+//     })
+// }
+export const getUserSelect=params=>axios.get('/system/user/list',{params})

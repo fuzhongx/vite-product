@@ -4,7 +4,7 @@
             <div class="FormCenter">
                 <MyForm v-bind="formConfig" v-model="FormData" ref="myFormRef">
                     <template #src>
-                        <img :src="'data:image/jpeg;base64,' + keyWord.imgs" class="imgsKey" />
+                        <img :src="'data:image/jpeg;base64,' + keyWord.imgs" class="imgsKey" @click="captchaKey"/>
                     </template>
                     <template #un_username>
                         <el-checkbox v-model="un_username" label="记住账号" @change="checkUserName" class="un-username" />
@@ -106,13 +106,13 @@ const loginSubmit = () => {
     })
 
 }
+//获取验证码
 const captchaKey = () => {
     captchaApi().then(cres => {
         keyWord.imgs = cres.data.data.img
         keyWord.uuid = cres.data.data.uuid
     })
 }
-
 
 const reset = () => {
     myFormRef.value?.resetForm()
