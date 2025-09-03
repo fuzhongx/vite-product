@@ -100,8 +100,7 @@ const defaultTime = [
   new Date(2000, 2, 1, 23, 59, 59),
 ] 
 const getTime=(v)=>{
-    console.log(v,'选择时间');
-    
+    console.log(v,'选择时间');   
 }
 //默认重置
 const resetForm = () => {

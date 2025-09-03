@@ -7,10 +7,10 @@
                             <el-icon> <i-ep-upload-filled /></el-icon>
                             <template #title><span style="font-weight: bold;font-size: 18px;">云麦数字工厂</span></template>
                     </el-menu-item>
-                    <template v-for="v in nav" :key="v.name">
+                    <template v-for="v in menuNav" :key="v.name">
                         <el-menu-item :index="`/${v.children[0].path}`" v-if="getRoutes(v)"
-                            @click="getR(v.children[0].path)">
-                            {{ v.children.meta }}
+                            @click="getR(v.children[0])">
+                            <!-- {{ v.children.meta }} -->
                             <el-icon> <i-ep-upload-filled /></el-icon>
                             <template #title> {{ v.children[0].meta?.title }}</template>
                         </el-menu-item>
@@ -22,7 +22,7 @@
                                 <span>{{ v.meta?.title }}</span>
                             </template>
                             <el-menu-item :index=childs.path v-for="childs in v.children" :key="childs.name"
-                                @click="getMenuIndex(childs.path)">{{ childs.meta?.title }}</el-menu-item>
+                                @click="getMenuIndex(childs)">{{ childs.meta?.title }}</el-menu-item>
                         </el-sub-menu>
                     </template>
                 </el-menu>
@@ -46,7 +46,7 @@ import { mainStore } from '@/store/index.js'
 import { storeToRefs } from 'pinia'//响应式处理
 
 const store = mainStore()//获取缓存数据
-const { nav } = storeToRefs(store)//结构并使数据具有响应式
+const { menuNav } = storeToRefs(store)//结构并使数据具有响应式
 
 const isCollapse = ref(false)
 
@@ -56,8 +56,10 @@ bus.on('isCollapse', data => {
     isCollapse.value = data
 })
 const getR = (v) => {
-    console.log(v);
-
+    console.log(v,'l')
+    store.setRouter(v)
+    console.log(store,'kk');
+    
 }
 
 const getRoutes = (v) => {
@@ -121,7 +123,13 @@ onMounted(async () => {
 }
 
 .el-header {
-    background: goldenrod;
+    height: 80px;
+    padding: 0px !important;
+    border-bottom: 1px solid #d8dce5;
+    box-shadow: 0px 1px 1px #d8dce5;; 
+    /* box-shadow: 0 0px 1px rgba(246, 242, 242, 0.1), inset 0 0px 1px #d8dce5;   */
+
+
 }
 
 .el-main {

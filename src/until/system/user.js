@@ -1,4 +1,5 @@
 //封装，配置相关数据生成配置
+const params=['beginTime','endTime']
 export default {
   labelWidth: "68px",
   inline: true,

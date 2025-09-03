@@ -105,12 +105,18 @@ const getTreeValue = async (v) => {
   })
 }
 
+const p = ['beginTime', 'endTime']
+
+
 //查询
 const submitSelect = () => {
+  let { params, ...data } = FormData.value
   getUserSelect({
     pageNum: 1,
     pageSize: 10,
-    ...FormData.value
+    ...data,
+    'params[beginTime]': params[0],
+    'params[endTime]': params[1]
   }).then(res => {
     myTableData.value = res.data.rows
   })
@@ -119,6 +125,7 @@ const submitSelect = () => {
 //重置
 const reset = () => {
   myFormRef.value.resetForm()
+  handleTable()
 }
 
 // 表格数据

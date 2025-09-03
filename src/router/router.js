@@ -8,7 +8,7 @@ import 'nprogress/nprogress.css'
 const routes = [
   {
     path: "/",
-    redirect: "/login",
+    // redirect: "/login",
   },
   { path: "/login", component: () => import("@/view/login.vue") },
   {
@@ -29,7 +29,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.path === "/login") {
     next();
   } else {
-    if (mainStore() && mainStore().nav.length == 0) {
+    if (mainStore() && mainStore().menuNav.length == 0) {
       //1.发送请求
       const {
         data: { data },
