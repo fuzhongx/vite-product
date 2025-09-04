@@ -1,5 +1,5 @@
 <template>
-    <el-table ref="multipleTableRef" :data="myTableData" style="width: 100%" v-bind="$attrs" height="600" fit>
+    <el-table ref="multipleTableRef" :data="myTableData" style="width: 100%" v-bind="$attrs" height="600" fit :header-cell-style="{background:'#f8f8f9',color:'#515a6e'}">
         <template v-for="(v,i) in tableItem" :key="i">     
         <el-table-column :type=v.type :width=v.width v-if="v.type==='selection'"/>
         <el-table-column :type=v.type :label="v.label" :width=v.width  :align='v.align' v-if="v.type==='status'">
@@ -27,4 +27,8 @@ const props = defineProps({
 })
 </script>
 
-<style></style>
+<style>
+.el-table td.el-table__cell, .el-table th.el-table__cell.is-leaf {
+    border-bottom: 1px solid #dfe6ec;
+}
+</style>

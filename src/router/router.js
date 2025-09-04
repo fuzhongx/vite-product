@@ -8,7 +8,7 @@ import 'nprogress/nprogress.css'
 const routes = [
   {
     path: "/",
-    // redirect: "/login",
+    redirect: "/login",
   },
   { path: "/login", component: () => import("@/view/login.vue") },
   {

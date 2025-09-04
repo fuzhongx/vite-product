@@ -175,6 +175,7 @@ const handleSelectionChange = () => {
 
 .myTable {
   width: 100%;
+  margin-top: 10px;
 }
 
 .options {
@@ -192,10 +193,10 @@ const handleSelectionChange = () => {
 }
 
 ::v-deep .el-select__wrapper {
-  width: 240px !important;
+  width:192px !important;
 }
 
 ::v-deep .el-range-editor.el-input__wrapper {
-  width: 240px !important;
+  width: 192px !important;
 }
 </style>

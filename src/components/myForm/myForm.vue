@@ -32,7 +32,7 @@
                 <template v-else-if="v.type === 'datetimerange'">
                     <el-date-picker type="datetimerange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
                         v-model="modelValue[v.feild]" size style="width:100%" value-format="YYYY-MM-DD HH:mm:ss" format="YYYY-MM-DD"
-                        time-format="hh:mm:ss" :default-time=defaultTime editable clearable @change="getTime"/>
+                        time-format="hh:mm:ss" :default-time=defaultTime editable  @change="getTime"/>
                 </template>
 
                 <!-- 开关按钮 -->

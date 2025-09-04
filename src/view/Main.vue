@@ -1,11 +1,11 @@
 <template>
     <div class="common-layout">
         <el-container>
-            <el-aside  :width="isCollapse ===true ? '65px':'250px'">
+            <el-aside :width="isCollapse === true ? '65px' : '250px'">
                 <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" router ellipsis>
                     <el-menu-item style="display:flex;justify-content: center;">
-                            <el-icon> <i-ep-upload-filled /></el-icon>
-                            <template #title><span style="font-weight: bold;font-size: 18px;">云麦数字工厂</span></template>
+                        <el-icon> <i-ep-upload-filled /></el-icon>
+                        <template #title><span style="font-weight: bold;font-size: 18px;">云麦数字工厂</span></template>
                     </el-menu-item>
                     <template v-for="v in menuNav" :key="v.name">
                         <el-menu-item :index="`/${v.children[0].path}`" v-if="getRoutes(v)"
@@ -22,7 +22,8 @@
                                 <span>{{ v.meta?.title }}</span>
                             </template>
                             <el-menu-item :index=childs.path v-for="childs in v.children" :key="childs.name"
-                                @click="getMenuIndex(childs)">{{ childs.meta?.title }}</el-menu-item>
+                                @click="getMenuIndex(childs)">{{
+                                    childs.meta?.title }}</el-menu-item>
                         </el-sub-menu>
                     </template>
                 </el-menu>
@@ -56,10 +57,10 @@ bus.on('isCollapse', data => {
     isCollapse.value = data
 })
 const getR = (v) => {
-    console.log(v,'l')
+    console.log(v, 'l')
     store.setRouter(v)
-    console.log(store,'kk');
-    
+    console.log(store, 'kk');
+
 }
 
 const getRoutes = (v) => {
@@ -87,6 +88,7 @@ onMounted(async () => {
 }
 
 .el-menu {
+    transition: all 80ms;
     background: #104697;
 }
 
@@ -94,10 +96,12 @@ onMounted(async () => {
     width: auto !important;
     height: 100vh;
 }
+
 .el-menu--collapse {
     width: auto !important;
     height: 100vh;
 }
+
 .el-sub-menu__title * {
     color: #fff !important;
 }
@@ -105,31 +109,37 @@ onMounted(async () => {
 .el-menu-item {
     color: #fff !important;
 }
-.el-sub-menu__title:hover{
+
+.el-sub-menu__title:hover {
     background: #051940 !important;
 }
-.el-menu-item:hover{
+
+.el-menu-item:hover {
     background: #051940 !important;
 }
-.el-menu-item:active{
+
+.el-menu-item:active {
     background: #051940 !important;
 }
-.el-menu-item:focus{
+
+.el-menu-item:focus {
     background: #051940 !important;
 }
-.el-aside {
-    height: 100vh !important;
-    transition: width 0.2s;
+
+.el-aside { 
+    transition: width 0.3s;
+    /* transition: width 0.25s;
+    -webkit-transition: width 0.25s;
+    -moz-transition: width 0.25s;
+    -o-transition: width 0.25s; */
 }
 
 .el-header {
     height: 80px;
     padding: 0px !important;
     border-bottom: 1px solid #d8dce5;
-    box-shadow: 0px 1px 1px #d8dce5;; 
-    /* box-shadow: 0 0px 1px rgba(246, 242, 242, 0.1), inset 0 0px 1px #d8dce5;   */
-
-
+    box-shadow: 0px 1px 1px #d8dce5;
+    ;
 }
 
 .el-main {
