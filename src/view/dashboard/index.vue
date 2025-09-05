@@ -3,20 +3,21 @@
     <!-- 时间展示 -->
     <div class="dayTime">
       <div>
-        <el-form inline='false' :rules="rules">
-          <el-form-item label="起始时间" prop="dateValue">
+        <el-form :inline='true' :rules="rules">
+          <el-form-item label="起始时间" prop="dayValue">
             <el-date-picker type="datetimerange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"
-              v-model="dateValue" size style="width:100%" value-format="YYYY-MM-DD HH:mm:ss" format="YYYY-MM-DD"
-              time-format="hh:mm:ss" :default-time=defaultTime editable @change="getTime" />
+              v-model="dayValue" size style="width:100%" value-format="YYYY-MM-DD HH:mm:ss" format="YYYY-MM-DD"
+              time-format="hh:mm:ss" :default-time=defaultTime editable />
           </el-form-item>
           <el-form-item>
-            <el-button>查询</el-button></el-form-item>
+            <el-button class="btnSelect">查询</el-button></el-form-item>
         </el-form>
 
       </div>
       <div class="nav">
         <ul>
-          <li v-for="(item, i) in dayList" :key="i" @click="getMonthDays(item)" ref="liRef" class="getLi">{{ item.label }}</li>
+          <li v-for="(item, i) in dayList" :key="i" @click="getMonthDays(item)" ref="liRef" class="getLi">{{ item.label
+          }}</li>
         </ul>
       </div>
     </div>
@@ -31,55 +32,77 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const dateValue = ref()
+import { ref, onMounted } from 'vue'
+import { getToday, getYesterday, getThisMonth, getWeek, getHalfMoon } from '@/until/getToday.js'
+const dayValue = ref()
 const liRef = ref()
+
+//日期格式
+const defaultTime = [
+  new Date(2000, 1, 1, 0, 0, 0),
+  new Date(2000, 2, 1, 23, 59, 59),
+]
+
+//日期列表
 const dayList = [
   {
     label: '今天',
-    value: 0
+    value: getToday()
   },
   {
     label: '昨天',
-    value: -1
+    value: getYesterday()
   },
   {
     label: '本月',
-    value: 30
+    value: getThisMonth()
   },
   {
     label: '近7天',
-    value: 7
+    value: getWeek()
   },
   {
     label: '近15天',
-    value: 15
+    value: getHalfMoon()
   },
 
 ]
+
+//表单校验规则
 const rules = {
-  dateValue: [
+  dayValue: [
     { required: 'true', message: '', trigger: 'blur' }
   ]
 }
 
-const getMonthDays = (day) => {
-  console.log(day)
-  dayList.forEach(e => {
-    if (day.value == e.value) {
-      document.querySelector('.getLi').style.background='red'
-      // console.log( document.querySelector('.getLi'));
-      
-      // liRef.value.style.background='red'
-      // console.log(e.value, '日期');
+onMounted(() => {
+  BgColor()
+})
+
+/**
+ * getMonthDays 获取日期时间
+ */
+const today = ref('今天')
+//设置默认选中
+const BgColor = () => {
+  let Uli = liRef.value
+  for (let i = 0; i <= Uli.length - 1; i++) {
+    if (today.value == Uli[i].innerText) {
+      Uli[i].style.background = '#3671e8'
+      Uli[i].style.color = '#fff'
     } else {
-      // console.log('不是');
-        // document.querySelector('.getLi').style.background='#fff'
+      Uli[i].style.background = ''
+      Uli[i].style.color = ''
     }
+  }
+}
 
-  })
-
-
+const getMonthDays = (day) => {
+  today.value = day.label
+  BgColor()
+  dayValue.value=day.value
+  console.log(dayValue.value);
+  
 }
 </script>
 
@@ -131,6 +154,10 @@ const getMonthDays = (day) => {
           background-color: #3671e8;
         }
       }
+    }
+    .btnSelect{
+      background: #3671e8;
+      color: #fff;
     }
   }
 }
